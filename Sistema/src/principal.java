@@ -134,7 +134,7 @@ public class principal extends javax.swing.JFrame {
         jButton2Abrir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBarHerramientas.add(jButton2Abrir);
 
-        jButton3Guardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Anderson\\Desktop\\Sistema\\img\\save.png")); // NOI18N
+        jButton3Guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save.png"))); // NOI18N
         jButton3Guardar.setFocusable(false);
         jButton3Guardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3Guardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

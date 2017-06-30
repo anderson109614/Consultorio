@@ -165,7 +165,7 @@
         <Component class="javax.swing.JButton" name="jButton3Guardar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Anderson\Desktop\Sistema\img\save.png"/>
+              <Image iconType="3" name="/img/save.png"/>
             </Property>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
