@@ -176,7 +176,7 @@ public class principal extends javax.swing.JFrame {
         jToolBarUsuarios.add(jLabelNomUSR);
         jToolBarUsuarios.add(jSeparator2);
 
-        jButtonSalir_TollBar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Anderson\\Desktop\\Sistema\\src\\img\\exit.png")); // NOI18N
+        jButtonSalir_TollBar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit.png"))); // NOI18N
         jButtonSalir_TollBar.setFocusable(false);
         jButtonSalir_TollBar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonSalir_TollBar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
