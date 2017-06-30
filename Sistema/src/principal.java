@@ -189,7 +189,7 @@ public class principal extends javax.swing.JFrame {
 
         jLabel1.setText("CÉDULA: ");
 
-        jButton1BUSCAR.setIcon(new javax.swing.ImageIcon("C:\\Users\\Anderson\\Desktop\\Sistema\\img\\loupe.png")); // NOI18N
+        jButton1BUSCAR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/loupe.png"))); // NOI18N
         jButton1BUSCAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1BUSCARActionPerformed(evt);
