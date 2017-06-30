@@ -1,0 +1,14 @@
+Usuario:postgres
+Contraseñaa:1096anderson
+NombreBD: LABORATORIOCLINICO
+
+Host: localhost
+puerto: 5432
+
+ CREATE TABLE CLIENTES
+ (
+ CED_CLI VARCHAR(10) PRIMARY KEY,
+ NOM_CLI VARCHAR(20) NOT NULL,
+     APE_CLI VARCHAR(20) NOT NULL
+     
+ );
