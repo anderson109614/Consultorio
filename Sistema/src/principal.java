@@ -127,7 +127,7 @@ public class principal extends javax.swing.JFrame {
 
         jToolBarHerramientas.setRollover(true);
 
-        jButton2Abrir.setIcon(new javax.swing.ImageIcon("C:\\Users\\Anderson\\Desktop\\Sistema\\img\\carpeta (1).png")); // NOI18N
+        jButton2Abrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/carpeta (1).png"))); // NOI18N
         jButton2Abrir.setFocusable(false);
         jButton2Abrir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2Abrir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
