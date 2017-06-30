@@ -67,7 +67,7 @@ public class login extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Anderson\\Desktop\\Sistema\\img\\Iconos-PSKLOUD_Laboratorio.png")); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Iconos-PSKLOUD_Laboratorio.png"))); // NOI18N
         jLabel3.setText("jLabel3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
