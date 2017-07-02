@@ -109,7 +109,6 @@ public class principal extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableListaExamenes = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu_Archivo = new javax.swing.JMenu();
         jMenuItemNuevo = new javax.swing.JMenuItem();
@@ -141,7 +140,7 @@ public class principal extends javax.swing.JFrame {
         jToolBarHerramientas.add(jButton3Guardar);
         jToolBarHerramientas.add(jSeparator3);
 
-        jButton4NewUser.setIcon(new javax.swing.ImageIcon("C:\\Users\\Anderson\\Desktop\\Sistema\\img\\user.png")); // NOI18N
+        jButton4NewUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/user.png"))); // NOI18N
         jButton4NewUser.setFocusable(false);
         jButton4NewUser.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton4NewUser.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -152,7 +151,7 @@ public class principal extends javax.swing.JFrame {
         });
         jToolBarHerramientas.add(jButton4NewUser);
 
-        jButton5AddUser.setIcon(new javax.swing.ImageIcon("C:\\Users\\Anderson\\Desktop\\Sistema\\img\\useradd.png")); // NOI18N
+        jButton5AddUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/useradd.png"))); // NOI18N
         jButton5AddUser.setFocusable(false);
         jButton5AddUser.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5AddUser.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -164,7 +163,7 @@ public class principal extends javax.swing.JFrame {
         jToolBarHerramientas.add(jButton5AddUser);
         jToolBarHerramientas.add(jSeparator4);
 
-        jButton6Reportes.setIcon(new javax.swing.ImageIcon("C:\\Users\\Anderson\\Desktop\\Sistema\\img\\print.png")); // NOI18N
+        jButton6Reportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/print.png"))); // NOI18N
         jButton6Reportes.setFocusable(false);
         jButton6Reportes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton6Reportes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -346,8 +345,6 @@ public class principal extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("jButton2");
-
         jMenu_Archivo.setText("Archivo");
 
         jMenuItemNuevo.setText("Nuevo");
@@ -394,15 +391,10 @@ public class principal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton1BUSCAR))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE))
+                .addGap(132, 132, 132)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(132, 132, 132)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -414,9 +406,7 @@ public class principal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))
+                        .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -587,7 +577,6 @@ public class principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton1BUSCAR;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton2Abrir;
     private javax.swing.JButton jButton3Guardar;
     private javax.swing.JButton jButton4NewUser;
