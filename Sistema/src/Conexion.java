@@ -18,6 +18,27 @@ public class Conexion {
     static String USUARIO = "postgres";
     static String CLAVE = "1096anderson";
 
+   public ResultSet busquedaExamen(String nom) {
+
+        Connection con;
+        ResultSet res = null;
+        try {
+            Class.forName(DRIVER);
+            try {
+                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+                String sql = "SELECT E.COD_EXA,T.NOM_TIP,E.TIP_EXA,E.COS_EXA"
+                        + " FROM EXAMENES E ,TIPO_EXAMEN T WHERE T.COD_TIP=E.COD_TIP_EXA AND E.TIP_EXA LIKE '%" + nom+ "%'";
+                PreparedStatement pstm = con.prepareStatement(sql);
+                res = pstm.executeQuery();
+
+            } catch (Exception e) {
+            }
+        } catch (ClassNotFoundException e) {
+           JOptionPane.showMessageDialog(null,e.getMessage());
+        }
+        return res;
+
+    }
     public ResultSet busquedLabo(String CI) {
 
         Connection con;
@@ -213,6 +234,86 @@ public class Conexion {
             //System.out.println(e.getMessage());
         }
         return i;
+
+    }public int contConsltas() {
+
+        Connection con;
+        ResultSet res = null;
+        int i = 0;
+        try {
+            Class.forName(DRIVER);
+            try {
+                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+                String sql = "SELECT count(COD_CON) "
+                        + "FROM CONSULTAS ";
+                PreparedStatement pstm = con.prepareStatement(sql);
+                res = pstm.executeQuery();
+
+                while (res.next()) {
+                    i = res.getInt(1);
+                }
+
+            } catch (Exception e) {
+            }
+        } catch (ClassNotFoundException e) {
+            //System.out.println(e.getMessage());
+        }
+        return i;
+
+    }
+    
+    public boolean insertarConsulta(String[] datos,String[] exam) {
+        Connection con;
+
+        try {
+            Class.forName(DRIVER);
+            try {
+                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+                String sql = "INSERT INTO CONSULTAS VALUES ('" + datos[0] + "','" + datos[1] + "','"
+                        + datos[2] + "','" + datos[3] + "',null)";
+                PreparedStatement pstm = con.prepareStatement(sql);
+                pstm.execute();
+                
+                int a = exam.length;
+                for (int i = 0; i < a; i++) {
+                    String[] d = new String[2];
+                    d[0]=datos[0];
+                    d[1]=exam[i];
+                   insertarDetalleConsulta(d); 
+                }
+
+            } catch (SQLException e) {
+
+                JOptionPane.showMessageDialog(null, e.getMessage());
+
+            }
+        } catch (ClassNotFoundException e) {
+
+        }
+        return true;
+
+    }
+    public boolean insertarDetalleConsulta(String[] datos) {
+        Connection con;
+
+        try {
+            Class.forName(DRIVER);
+            try {
+                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+                String sql = "INSERT INTO DETALLES VALUES ('" + datos[0] + "','" + datos[1] + "',null,null)";
+                PreparedStatement pstm = con.prepareStatement(sql);
+                pstm.execute();
+                
+
+            } catch (SQLException e) {
+
+                JOptionPane.showMessageDialog(null, e.getMessage());
+
+            }
+        } catch (ClassNotFoundException e) {
+
+        }
+        return true;
 
     }
 
