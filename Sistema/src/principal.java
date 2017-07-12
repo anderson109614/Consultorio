@@ -63,7 +63,7 @@ public class principal extends javax.swing.JFrame {
         for (Component c : jPanel1.getComponents()) {
             c.setEnabled(false);
         }
-
+        
         //
         //jTableListaExamenesPac.setModel(ListaExaPac);
     }
@@ -76,7 +76,9 @@ public class principal extends javax.swing.JFrame {
         this.pack();
         fondo.setVisible(true);
         this.setExtendedState(MAXIMIZED_BOTH);
-
+        for (Component c : jPanel1.getComponents()) {
+            c.setEnabled(false);
+        }
         // jTableListaExamenes.setModel(listaExamenes);
         //jTableListaExamenesPac.setModel(ListaExaPac);
     }
@@ -220,6 +222,9 @@ public class principal extends javax.swing.JFrame {
         jToolBarUsuarios.add(jButtonSalir_TollBar);
 
         jLabel1.setText("CÉDULA: ");
+
+        jTextField1CICliente.setFocusCycleRoot(true);
+        jTextField1CICliente.setFocusTraversalPolicyProvider(true);
 
         jButton1BUSCAR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/loupe.png"))); // NOI18N
         jButton1BUSCAR.addActionListener(new java.awt.event.ActionListener() {
@@ -503,7 +508,7 @@ public class principal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextFieldBuscarExamen, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(63, Short.MAX_VALUE))
@@ -730,6 +735,8 @@ public class principal extends javax.swing.JFrame {
                 jTextFieldBuscarExamen.setText(Cadena);
                 repaint();
                 filtro();
+                
+                          
 
             }
         });
