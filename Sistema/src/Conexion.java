@@ -10,6 +10,12 @@
  */
 import java.sql.*;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class Conexion {
 
@@ -18,6 +24,28 @@ public class Conexion {
     static String USUARIO = "postgres";
     static String CLAVE = "1096anderson";
 
+    public void abrirRepor(String nom) throws SQLException, JRException{
+      Connection con;
+        ResultSet res = null;
+        try {
+            Class.forName(DRIVER);
+            
+                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+               
+             String dir ="src\\reportes\\"+nom;
+        try {
+            JasperReport reporteJasper= JasperCompileManager.compileReport(dir);
+            JasperPrint mostrarReporte = JasperFillManager.fillReport(reporteJasper, null,con);
+            JasperViewer.viewReport(mostrarReporte);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+            
+        } catch (ClassNotFoundException e) {
+           JOptionPane.showMessageDialog(null,e.getMessage());
+        }  
+    }
+    
    public ResultSet busquedaExamen(String nom) {
 
         Connection con;
