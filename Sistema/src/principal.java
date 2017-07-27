@@ -95,7 +95,7 @@ public class principal extends javax.swing.JFrame {
 
         menuEliminar = new javax.swing.JPopupMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jDialog1 = new javax.swing.JDialog();
+        jDialog_Registro_Cliente = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -124,6 +124,8 @@ public class principal extends javax.swing.JFrame {
         jButton5AddUser = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
         jButton6Reportes = new javax.swing.JButton();
+        jSeparator5 = new javax.swing.JToolBar.Separator();
+        jButton3 = new javax.swing.JButton();
         jToolBarUsuarios = new javax.swing.JToolBar();
         jLabelNomUSR = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JToolBar.Separator();
@@ -165,6 +167,9 @@ public class principal extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemSalir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItemExaMasFre = new javax.swing.JMenuItem();
+        Facturas = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("Eliminar");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -284,37 +289,37 @@ public class principal extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
-        jDialog1.getContentPane().setLayout(jDialog1Layout);
-        jDialog1Layout.setHorizontalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDialog1Layout.createSequentialGroup()
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDialog1Layout.createSequentialGroup()
-                        .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jDialog1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jDialog_Registro_ClienteLayout = new javax.swing.GroupLayout(jDialog_Registro_Cliente.getContentPane());
+        jDialog_Registro_Cliente.getContentPane().setLayout(jDialog_Registro_ClienteLayout);
+        jDialog_Registro_ClienteLayout.setHorizontalGroup(
+            jDialog_Registro_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog_Registro_ClienteLayout.createSequentialGroup()
+                .addGroup(jDialog_Registro_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDialog_Registro_ClienteLayout.createSequentialGroup()
+                        .addGroup(jDialog_Registro_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jDialog_Registro_ClienteLayout.createSequentialGroup()
                                 .addGap(160, 160, 160)
                                 .addComponent(jLabel18))
-                            .addGroup(jDialog1Layout.createSequentialGroup()
+                            .addGroup(jDialog_Registro_ClienteLayout.createSequentialGroup()
                                 .addGap(34, 34, 34)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialog1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialog_Registro_ClienteLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton1Guardar)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2Cancealr)))
                 .addContainerGap())
         );
-        jDialog1Layout.setVerticalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDialog1Layout.createSequentialGroup()
+        jDialog_Registro_ClienteLayout.setVerticalGroup(
+            jDialog_Registro_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog_Registro_ClienteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jDialog_Registro_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2Cancealr)
                     .addComponent(jButton1Guardar))
                 .addContainerGap())
@@ -380,6 +385,14 @@ public class principal extends javax.swing.JFrame {
             }
         });
         jToolBarHerramientas.add(jButton6Reportes);
+        jToolBarHerramientas.add(jSeparator5);
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/medical-history.png"))); // NOI18N
+        jButton3.setToolTipText("Entraga de Resultados");
+        jButton3.setFocusable(false);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBarHerramientas.add(jButton3);
 
         jToolBarUsuarios.setRollover(true);
 
@@ -646,6 +659,17 @@ public class principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu_Archivo);
 
         jMenu2.setText("ver");
+
+        jMenu1.setText("Reportes");
+
+        jMenuItemExaMasFre.setText("Examenes mas frecuentes");
+        jMenu1.add(jMenuItemExaMasFre);
+
+        jMenu2.add(jMenu1);
+
+        Facturas.setText("Facturas");
+        jMenu2.add(Facturas);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -772,6 +796,11 @@ public class principal extends javax.swing.JFrame {
     private void jButton1BUSCARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1BUSCARActionPerformed
         // TODO add your handling code here:
         String ci_cli = jTextField1CICliente.getText();
+        busquedaLlenadoCliente(ci_cli);
+
+    }//GEN-LAST:event_jButton1BUSCARActionPerformed
+
+    private void busquedaLlenadoCliente(String ci_cli) {
         if (Auxiliar.verificarCedula(ci_cli) == 1) {
             ResultSet res = con.datos_cli(ci_cli);
             try {
@@ -779,12 +808,12 @@ public class principal extends javax.swing.JFrame {
                     String[] edad = res.getString(3).split(" ");
                     jTextField_Nom_cli.setText(res.getString(1));
                     jTextFieldApe_cli.setText(res.getString(2));
-
+                    
                     jTextFieldTel_cli.setText(res.getString(4));
                     jTextFieldCel_cli.setText(res.getString(5));
-
+                    
                     jTextFieldDir_cli.setText(res.getString(7));
-
+                    
                 }
                 Calendar c = new GregorianCalendar();
                 String dia = Integer.toString(c.get(Calendar.DATE));
@@ -793,7 +822,7 @@ public class principal extends javax.swing.JFrame {
                 jTextFieldFecCon.setText(dia + "/" + mes + "/" + año);
                 jTableListaExamenes.setEnabled(true);
                 jTableListaExamenesPac.setEnabled(true);
-
+                
                 int consulta = con.contConsltas() + 1;
                 jTextFieldNumConsult.setText(String.valueOf(consulta));
             } catch (SQLException ex) {
@@ -802,8 +831,7 @@ public class principal extends javax.swing.JFrame {
         } else {
             limpiado_Bloqueo();
         }
-
-    }//GEN-LAST:event_jButton1BUSCARActionPerformed
+    }
 
     private void jButton4NewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4NewUserActionPerformed
         // TODO add your handling code here:
@@ -1012,18 +1040,14 @@ public class principal extends javax.swing.JFrame {
 
     private void jButton3GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3GuardarActionPerformed
         // TODO add your handling code here:
-       jDialog1.setVisible(true);
-       jDialog1.setSize(400, 400);
+       jDialog_Registro_Cliente.setVisible(true);
+       jDialog_Registro_Cliente.setSize(400, 400);
     }//GEN-LAST:event_jButton3GuardarActionPerformed
 
     private void jButton6ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ReportesActionPerformed
         // TODO add your handling code here:
-        try {
-            // TODO add your handling code here:
-            con.abrirRepor("FichaConsulta.jrxml");
-        } catch (SQLException | JRException ex) {
-            Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         ImprecionExamenes dialog = new ImprecionExamenes(new javax.swing.JFrame(), true);
+         dialog.setVisible(true);
     }//GEN-LAST:event_jButton6ReportesActionPerformed
 public boolean ValidarControlesIngreso(){
         if("".equals(jTextField1CICliente1.getText())|| Auxiliar.verificarCedula(jTextField1CICliente1.getText())==0){//|| Auxiliar.verificarCedula(jTextField1CICliente1.getText())==1){
@@ -1074,15 +1098,20 @@ public boolean ValidarControlesIngreso(){
             //jTextField_Edad_Dem.setText(año);
             String fec=dia+"/"+mes+"/"+año;
             datos[3]=fec;
-            con.insertarUsuario(datos);
-            JOptionPane.showMessageDialog(this, "Registro Exitoso");
-            jDialog1.setVisible(false);
+            if (con.insertarUsuario(datos)) {
+             JOptionPane.showMessageDialog(this, "Registro Exitoso");
+            jTextField1CICliente.setText(datos[0]);
+            busquedaLlenadoCliente(datos[0]);
+            jDialog_Registro_Cliente.setVisible(false);   
+            }else{
+                JOptionPane.showMessageDialog(this, "Fallo en la insercion del Usurio");
+            }
 
         };
     }//GEN-LAST:event_jButton1GuardarActionPerformed
 
     private void jButton2CancealrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2CancealrActionPerformed
-        jDialog1.setVisible(false);
+        jDialog_Registro_Cliente.setVisible(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2CancealrActionPerformed
 
@@ -1175,12 +1204,14 @@ public boolean ValidarControlesIngreso(){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Facturas;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton1BUSCAR;
     private javax.swing.JButton jButton1Guardar;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton2Abrir;
     private javax.swing.JButton jButton2Cancealr;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton3Guardar;
     private javax.swing.JButton jButton4NewUser;
     private javax.swing.JButton jButton5AddUser;
@@ -1188,7 +1219,7 @@ public boolean ValidarControlesIngreso(){
     private javax.swing.JButton jButtonEliminarLisPac;
     private javax.swing.JButton jButtonSalir_TollBar;
     private com.toedter.calendar.JDateChooser jDateChooserFec_nac;
-    private javax.swing.JDialog jDialog1;
+    private javax.swing.JDialog jDialog_Registro_Cliente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1208,10 +1239,12 @@ public boolean ValidarControlesIngreso(){
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelNomUSR;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItemAbrir;
+    private javax.swing.JMenuItem jMenuItemExaMasFre;
     private javax.swing.JMenuItem jMenuItemGuardar;
     private javax.swing.JMenuItem jMenuItemNuevo;
     private javax.swing.JMenuItem jMenuItemSalir;
@@ -1225,6 +1258,7 @@ public boolean ValidarControlesIngreso(){
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
+    private javax.swing.JToolBar.Separator jSeparator5;
     private javax.swing.JTable jTableListaExamenes;
     private javax.swing.JTable jTableListaExamenesPac;
     private javax.swing.JTextField jTextField1CICliente;

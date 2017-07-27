@@ -9,6 +9,8 @@
  * @author Anderson
  */
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -36,7 +38,7 @@ public class Conexion {
         try {
             JasperReport reporteJasper= JasperCompileManager.compileReport(dir);
             JasperPrint mostrarReporte = JasperFillManager.fillReport(reporteJasper, null,con);
-            JasperViewer.viewReport(mostrarReporte);
+            JasperViewer.viewReport(mostrarReporte,false);
         } catch (JRException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -167,16 +169,18 @@ public class Conexion {
                         + "WHERE CED_CLI='" + datos[0] + "';";
                 PreparedStatement pstm = con.prepareStatement(sql);
                 pstm.execute();
+                return true;
 
             } catch (SQLException e) {
 
                 JOptionPane.showMessageDialog(null, e.getMessage());
-
+                return false;
             }
         } catch (ClassNotFoundException e) {
-
+            JOptionPane.showMessageDialog(null, e.getMessage());
+           return false;
         }
-        return true;
+        
 
     }
 
@@ -263,7 +267,8 @@ public class Conexion {
         }
         return i;
 
-    }public int contConsltas() {
+    }
+    public int contConsltas() {
 
         Connection con;
         ResultSet res = null;
@@ -344,5 +349,175 @@ public class Conexion {
         return true;
 
     }
+    
+    public ResultSet BusConsultasCli(String CICliente) {
+
+        Connection con;
+        ResultSet res = null;
+        try {
+            Class.forName(DRIVER);
+            try {
+                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+                String sql = "SELECT C.NOM_CLI,C.APE_CLI,CO.COD_CON,CO.CI_LAB,CO.FEC_CON "+
+                              "FROM CLIENTES C,CONSULTAS CO "+
+                              "WHERE C.CED_CLI=CO.CI_CLI "+
+                              "AND CO.CI_CLI='"+CICliente+"'";
+                        
+                PreparedStatement pstm = con.prepareStatement(sql);
+                res = pstm.executeQuery();
+
+            } catch (Exception e) {
+            }
+        } catch (ClassNotFoundException e) {
+            // System.out.println(e.getMessage());
+        }
+        return res;
+
+    }
+    public ResultSet BusExamenesNull(String CICliente,String CILab) {
+
+        Connection con;
+        ResultSet res = null;
+        try {
+            Class.forName(DRIVER);
+            try {
+                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+                String sql = "SELECT C.NOM_CLI,C.APE_CLI,CO.COD_CON,TE.NOM_TIP,E.TIP_EXA,D.RES_EXA "+ 
+                             "FROM CLIENTES C, CONSULTAS CO,DETALLES D,EXAMENES E,TIPO_EXAMEN TE "+
+                             "WHERE C.CED_CLI=CO.CI_CLI "+
+                             "AND CO.CI_CLI='"+CICliente+"' "+
+                             "AND CO.CI_LAB='"+CILab+"' "+
+                             "AND CO.COD_CON=D.COD_CON "+
+                             "AND D.COD_EXA=E.COD_EXA "+
+                             "AND E.COD_TIP_EXA=TE.COD_TIP "+
+                             "AND D.RES_EXA IS NULL ";
+                        
+                PreparedStatement pstm = con.prepareStatement(sql);
+                res = pstm.executeQuery();
+
+            } catch (Exception e) {
+            }
+        } catch (ClassNotFoundException e) {
+            // System.out.println(e.getMessage());
+        }
+        return res;
+
+    }
+    
+    public int contExamenesTOT(String codCon) {
+
+        Connection con;
+        ResultSet res = null;
+        int i = 0;
+        try {
+            Class.forName(DRIVER);
+            try {
+                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+                String sql = "SELECT COUNT(COD_EXA) "+
+                             "FROM DETALLES "+
+                             "WHERE COD_CON='"+codCon+"' "+
+                              "GROUP BY COD_CON";
+                PreparedStatement pstm = con.prepareStatement(sql);
+                res = pstm.executeQuery();
+
+                while (res.next()) {
+                    i = res.getInt(1);
+                }
+
+            } catch (Exception e) {
+            }
+        } catch (ClassNotFoundException e) {
+            //System.out.println(e.getMessage());
+        }
+        return i;
+
+    }
+    
+     public int contExamenesTER(String codCon) {
+
+        Connection con;
+        ResultSet res = null;
+        int i = 0;
+        try {
+            Class.forName(DRIVER);
+            try {
+                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+                String sql = "SELECT COUNT(COD_EXA) "+
+                             "FROM DETALLES "+
+                             "WHERE COD_CON='"+codCon+"' "+
+                             "AND FEC_RES=NULL "+
+                              "GROUP BY COD_CON";
+                PreparedStatement pstm = con.prepareStatement(sql);
+                res = pstm.executeQuery();
+
+                while (res.next()) {
+                    i = res.getInt(1);
+                }
+
+            } catch (Exception e) {
+            }
+        } catch (ClassNotFoundException e) {
+            //System.out.println(e.getMessage());
+        }
+        return i;
+
+    }
+    
+     public int totalCOn(String codCon) {
+
+        Connection con;
+        ResultSet res = null;
+        int i = 0;
+        try {
+            Class.forName(DRIVER);
+            try {
+                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+                String sql = "SELECT SUM(E.COS_EXA) "+
+                             "FROM DETALLES D,EXAMENES E "+
+                             "WHERE COD_CON='"+codCon+"' "+
+                             "AND D.COD_EXA=E.COD_EXA "+
+                             "GROUP BY COD_CON ";
+                PreparedStatement pstm = con.prepareStatement(sql);
+                res = pstm.executeQuery();
+
+                while (res.next()) {
+                    i = res.getInt(1);
+                }
+
+            } catch (Exception e) {
+            }
+        } catch (ClassNotFoundException e) {
+            //System.out.println(e.getMessage());
+        }
+        return i;
+
+    }
+    
+     
+     public void abrirReporPar(String nom,String Cod) throws SQLException, JRException{
+      Connection con;
+        ResultSet res = null;
+        try {
+            Class.forName(DRIVER);
+            
+                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+               
+             String dir ="src\\reportes\\"+nom;
+        try {
+            Map parametros = new HashMap();
+            parametros.put("CON",Cod);
+            JasperReport reporteJasper= JasperCompileManager.compileReport(dir);
+            JasperPrint mostrarReporte = JasperFillManager.fillReport(reporteJasper, parametros,con);
+            JasperViewer.viewReport(mostrarReporte,false);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+            
+        } catch (ClassNotFoundException e) {
+           JOptionPane.showMessageDialog(null,e.getMessage());
+        }  
+    }
+    
+    
 
 }
