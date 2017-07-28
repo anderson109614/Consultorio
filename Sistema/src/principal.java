@@ -117,8 +117,6 @@ public class principal extends javax.swing.JFrame {
         jButton1Guardar = new javax.swing.JButton();
         jButton2Cancealr = new javax.swing.JButton();
         jToolBarHerramientas = new javax.swing.JToolBar();
-        jButton2Abrir = new javax.swing.JButton();
-        jButton3Guardar = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         jButton4NewUser = new javax.swing.JButton();
         jButton5AddUser = new javax.swing.JButton();
@@ -333,23 +331,6 @@ public class principal extends javax.swing.JFrame {
         });
 
         jToolBarHerramientas.setRollover(true);
-
-        jButton2Abrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/carpeta (1).png"))); // NOI18N
-        jButton2Abrir.setFocusable(false);
-        jButton2Abrir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2Abrir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBarHerramientas.add(jButton2Abrir);
-
-        jButton3Guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save.png"))); // NOI18N
-        jButton3Guardar.setFocusable(false);
-        jButton3Guardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3Guardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton3Guardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3GuardarActionPerformed(evt);
-            }
-        });
-        jToolBarHerramientas.add(jButton3Guardar);
         jToolBarHerramientas.add(jSeparator3);
 
         jButton4NewUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/user.png"))); // NOI18N
@@ -392,6 +373,11 @@ public class principal extends javax.swing.JFrame {
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jToolBarHerramientas.add(jButton3);
 
         jToolBarUsuarios.setRollover(true);
@@ -1038,12 +1024,6 @@ public class principal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3GuardarActionPerformed
-        // TODO add your handling code here:
-       jDialog_Registro_Cliente.setVisible(true);
-       jDialog_Registro_Cliente.setSize(400, 400);
-    }//GEN-LAST:event_jButton3GuardarActionPerformed
-
     private void jButton6ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ReportesActionPerformed
         // TODO add your handling code here:
          ImprecionExamenes dialog = new ImprecionExamenes(new javax.swing.JFrame(), true);
@@ -1114,6 +1094,12 @@ public boolean ValidarControlesIngreso(){
         jDialog_Registro_Cliente.setVisible(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2CancealrActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        LlenadoResultados dialog = new LlenadoResultados(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void limpiado_Bloqueo() {
         ////////////////////////////////77
@@ -1209,10 +1195,8 @@ public boolean ValidarControlesIngreso(){
     private javax.swing.JButton jButton1BUSCAR;
     private javax.swing.JButton jButton1Guardar;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton2Abrir;
     private javax.swing.JButton jButton2Cancealr;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton3Guardar;
     private javax.swing.JButton jButton4NewUser;
     private javax.swing.JButton jButton5AddUser;
     private javax.swing.JButton jButton6Reportes;

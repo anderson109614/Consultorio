@@ -382,9 +382,9 @@ public class Conexion {
             Class.forName(DRIVER);
             try {
                 con = DriverManager.getConnection(URL, USUARIO, CLAVE);
-                String sql = "SELECT C.NOM_CLI,C.APE_CLI,CO.COD_CON,TE.NOM_TIP,E.TIP_EXA,D.RES_EXA "+ 
+                String sql = "SELECT C.NOM_CLI,C.APE_CLI,CO.COD_CON,TE.NOM_TIP,E.TIP_EXA,D.RES_EXA,E.COD_EXA "+ 
                              "FROM CLIENTES C, CONSULTAS CO,DETALLES D,EXAMENES E,TIPO_EXAMEN TE "+
-                             "WHERE C.CED_CLI=CO.CI_CLI "+
+                             "WHERE CO.CI_CLI=C.CED_CLI "+
                              "AND CO.CI_CLI='"+CICliente+"' "+
                              "AND CO.CI_LAB='"+CILab+"' "+
                              "AND CO.COD_CON=D.COD_CON "+
@@ -425,9 +425,11 @@ public class Conexion {
                 }
 
             } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         } catch (ClassNotFoundException e) {
             //System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return i;
 
@@ -445,7 +447,7 @@ public class Conexion {
                 String sql = "SELECT COUNT(COD_EXA) "+
                              "FROM DETALLES "+
                              "WHERE COD_CON='"+codCon+"' "+
-                             "AND FEC_RES=NULL "+
+                             "AND RES_EXA IS NOT NULL "+
                               "GROUP BY COD_CON";
                 PreparedStatement pstm = con.prepareStatement(sql);
                 res = pstm.executeQuery();
@@ -455,19 +457,21 @@ public class Conexion {
                 }
 
             } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         } catch (ClassNotFoundException e) {
             //System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return i;
 
     }
     
-     public int totalCOn(String codCon) {
+     public double totalCOn(String codCon) {
 
         Connection con;
         ResultSet res = null;
-        int i = 0;
+        double i = 0;
         try {
             Class.forName(DRIVER);
             try {
@@ -481,13 +485,15 @@ public class Conexion {
                 res = pstm.executeQuery();
 
                 while (res.next()) {
-                    i = res.getInt(1);
+                    i = res.getDouble(1);
                 }
 
             } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         } catch (ClassNotFoundException e) {
             //System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return i;
 
@@ -518,6 +524,32 @@ public class Conexion {
         }  
     }
     
+     public boolean insetarResultado(String cod,String res,String exa) {
+        Connection con;
+
+        try {
+            Class.forName(DRIVER);
+            try {
+                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+                String sql = "UPDATE DETALLES SET RES_EXA='" + res + "',FEC_RES=NOW() "+
+                         "WHERE COD_CON='" + cod + "'"
+                        + "AND COD_EXA='"+exa+"';";
+                PreparedStatement pstm = con.prepareStatement(sql);
+                pstm.execute();
+                return true;
+
+            } catch (SQLException e) {
+
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                return false;
+            }
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+           return false;
+        }
+        
+
+    }
     
 
 }

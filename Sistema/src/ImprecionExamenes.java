@@ -1,4 +1,5 @@
 
+import java.awt.BorderLayout;
 import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,12 +29,17 @@ public class ImprecionExamenes extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         modelo.addColumn("CONSULTA");
-        modelo.addColumn("FECHA");
         modelo.addColumn("LABORATORISTA");
+        modelo.addColumn("FECHA");
         modelo.addColumn("EXAMENES");
         modelo.addColumn("EXA. TERMINADOS");
         modelo.addColumn("TOTAL");
         jTable1.setModel(modelo);
+        pnlFondo fondo = new pnlFondo(650, 650); 
+       this.add(fondo,BorderLayout.CENTER);
+       this.pack();
+       
+        fondo.setVisible(true);
     }
 
     /**
@@ -121,7 +127,7 @@ public class ImprecionExamenes extends javax.swing.JDialog {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "CONSULTA", "FECHA", "LABORATORISTA", "EXAMENES", "EXA. TERMINADOS", "TOTAL"
+                "CONSULTA", "LABORATORISTA", "FECHA", "EXAMENES", "EXA. TERMINADOS", "TOTAL"
             }
         ));
         jTable1.getTableHeader().setReorderingAllowed(false);
@@ -203,8 +209,9 @@ public class ImprecionExamenes extends javax.swing.JDialog {
     Conexion con = new Conexion();
     DefaultTableModel modelo= new DefaultTableModel();
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+        limpiadoTabla();
         BusLlenadoConsultas();
-        limpiadoTabla();        
+                
         
         
     }//GEN-LAST:event_jButtonBuscarActionPerformed
@@ -223,7 +230,12 @@ private void limpiadoTabla() {
         if(jRadioButtonResultados.isSelected()){
             String cod=exaSelect();
             try {
-                con.abrirReporPar("resultados.jrxml",cod);
+                if(cod.equals("-1")){
+                    
+                }else{
+                  con.abrirReporPar("resultados.jrxml",cod);  
+                }
+                
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             } catch (JRException ex) {
@@ -232,7 +244,11 @@ private void limpiadoTabla() {
         }else{
             String cod=exaSelect();
             try {
+                 if(cod.equals("-1")){
+                    
+                }else{
                 con.abrirReporPar("FichaConsultaPar.jrxml",cod);
+                 }
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             } catch (JRException ex) {
@@ -274,7 +290,7 @@ private void limpiadoTabla() {
         Object[] datos= new Object[6];
         try {
             while(resCon.next()){
-                String nom=resCon.getString(1)+resCon.getString(2);
+                String nom=resCon.getString(1)+" "+resCon.getString(2);
                 jLabelNomCli.setText(nom);
                 datos[0]=resCon.getString(3);
                 datos[1]=resCon.getString(4);
@@ -288,6 +304,7 @@ private void limpiadoTabla() {
             
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
+            jLabelNomCli.setText("");
         }
     }
 
@@ -321,7 +338,7 @@ private void limpiadoTabla() {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ImprecionExamenes dialog = new ImprecionExamenes(new javax.swing.JFrame(), true);
+                ImprecionExamenes dialog = new ImprecionExamenes(new javax.swing.JFrame(), false);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
