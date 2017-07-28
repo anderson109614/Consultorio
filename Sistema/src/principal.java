@@ -1026,7 +1026,7 @@ public class principal extends javax.swing.JFrame {
 
     private void jButton6ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ReportesActionPerformed
         // TODO add your handling code here:
-         ImprecionExamenes dialog = new ImprecionExamenes(new javax.swing.JFrame(), true);
+         ImprecionExamenes dialog = new ImprecionExamenes(new javax.swing.JFrame(), false);
          dialog.setVisible(true);
     }//GEN-LAST:event_jButton6ReportesActionPerformed
 public boolean ValidarControlesIngreso(){
@@ -1097,7 +1097,7 @@ public boolean ValidarControlesIngreso(){
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        LlenadoResultados dialog = new LlenadoResultados(new javax.swing.JFrame(), true);
+        LlenadoResultados dialog = new LlenadoResultados(new javax.swing.JFrame(), false);
         dialog.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
