@@ -129,7 +129,12 @@ public class login extends javax.swing.JFrame {
                     if(usu.equals(jTextFieldUsuario.getText()) ){
                        if(res.getString(4).equals(jPasswordField1.getText())){
                         //JOptionPane.showMessageDialog(null, "Bienvenido");   
-                       principal nue = new principal(usu);
+                       String tip =res.getString(5);
+                       boolean es=true;
+                       if(tip.equals("USUARIO")){
+                           es=false;
+                       }
+                        principal nue = new principal(usu,es);
                        this.setVisible(false);
                        nue.setVisible(true);
                        }else{

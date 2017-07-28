@@ -69,7 +69,7 @@ public class principal extends javax.swing.JFrame {
         //jTableListaExamenesPac.setModel(ListaExaPac);
     }
 
-    public principal(String CI) {
+    public principal(String CI,boolean supUsu) {
         initComponents();
         CI_Lab = CI;
         pnlFondo fondo = new pnlFondo(1366, 768);
@@ -80,8 +80,16 @@ public class principal extends javax.swing.JFrame {
         for (Component c : jPanel1.getComponents()) {
             c.setEnabled(false);
         }
+        activarSupUser(supUsu);
         // jTableListaExamenes.setModel(listaExamenes);
         //jTableListaExamenesPac.setModel(ListaExaPac);
+    }
+    
+    public void activarSupUser(boolean es){
+        if(es){
+            jMenuItemNueExa.setEnabled(true);
+            jMenuItemNueLab.setEnabled(true);
+        }
     }
 
     /**
@@ -159,14 +167,17 @@ public class principal extends javax.swing.JFrame {
         jTextFieldFecCon = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu_Archivo = new javax.swing.JMenu();
-        jMenuItemNuevo = new javax.swing.JMenuItem();
-        jMenuItemGuardar = new javax.swing.JMenuItem();
-        jMenuItemAbrir = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItemNueExa = new javax.swing.JMenuItem();
+        jMenuItemNueLab = new javax.swing.JMenuItem();
+        jMenuItemNueCli = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemSalir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemExaMasFre = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         Facturas = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("Eliminar");
@@ -624,14 +635,30 @@ public class principal extends javax.swing.JFrame {
 
         jMenu_Archivo.setText("Archivo");
 
-        jMenuItemNuevo.setText("Nuevo");
-        jMenu_Archivo.add(jMenuItemNuevo);
+        jMenu3.setText("Nuevo");
 
-        jMenuItemGuardar.setText("Guardar");
-        jMenu_Archivo.add(jMenuItemGuardar);
+        jMenuItemNueExa.setText("Examen");
+        jMenuItemNueExa.setEnabled(false);
+        jMenuItemNueExa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemNueExaActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItemNueExa);
 
-        jMenuItemAbrir.setText("Abrir");
-        jMenu_Archivo.add(jMenuItemAbrir);
+        jMenuItemNueLab.setText("Laboratorista");
+        jMenuItemNueLab.setEnabled(false);
+        jMenu3.add(jMenuItemNueLab);
+
+        jMenuItemNueCli.setText("Cliente");
+        jMenuItemNueCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemNueCliActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItemNueCli);
+
+        jMenu_Archivo.add(jMenu3);
         jMenu_Archivo.add(jSeparator1);
 
         jMenuItemSalir.setText("Salir");
@@ -648,12 +675,38 @@ public class principal extends javax.swing.JFrame {
 
         jMenu1.setText("Reportes");
 
-        jMenuItemExaMasFre.setText("Examenes mas frecuentes");
+        jMenuItemExaMasFre.setText("Conteo de Examenes");
+        jMenuItemExaMasFre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExaMasFreActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemExaMasFre);
+
+        jMenuItem2.setText("Examenes Terminado");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Examenes No Terminados");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
 
         jMenu2.add(jMenu1);
 
         Facturas.setText("Facturas");
+        Facturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FacturasActionPerformed(evt);
+            }
+        });
         jMenu2.add(Facturas);
 
         jMenuBar1.add(jMenu2);
@@ -751,6 +804,9 @@ public class principal extends javax.swing.JFrame {
 
     private void jMenuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSalirActionPerformed
         // TODO add your handling code here:
+         this.setVisible(false);
+        login log = new login();
+        log.setVisible(true);
 
     }//GEN-LAST:event_jMenuItemSalirActionPerformed
 
@@ -844,18 +900,15 @@ public class principal extends javax.swing.JFrame {
         TableModel mo = jTableListaExamenes.getModel();
         // TableModel mo = (TableModel) tabla.getModel();
         int a = jTableListaExamenes.getSelectedRow();// evento al dar doble clic en la lista de los examenes para trasladarlo a la lista del paciente
-
-        //JOptionPane.showMessageDialog(this, modelo.getValueAt(a, 0).toString());
+        if(a==-1){
+            
+        }else{
         Object[] d = new Object[4];
         d[0] = mo.getValueAt(a, 0);
         d[1] = mo.getValueAt(a, 1);
         d[2] = mo.getValueAt(a, 2);
         d[3] = mo.getValueAt(a, 3);
 
-//        TableRowSorter table=new TableRowSorter(jTableListaExamenesPac.getModel());
-//        table.setRowFilter(RowFilter.regexFilter(d[0].toString(), 0));
-//        TableModel modeloaux = (TableModel) table.getModel();
-//        String aux= modeloaux.getValueAt(0, 0).toString();
         int filPac = jTableListaExamenesPac.getRowCount();
         if (!jTextFieldFecCon.getText().equals("")) {
             if (filPac > 0) {
@@ -882,7 +935,10 @@ public class principal extends javax.swing.JFrame {
                 jTableListaExamenesPac.setModel(modeloPac);
             }
         }
-
+    
+        }
+        //JOptionPane.showMessageDialog(this, modelo.getValueAt(a, 0).toString());
+        
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -1101,6 +1157,59 @@ public boolean ValidarControlesIngreso(){
         dialog.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jMenuItemNueExaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNueExaActionPerformed
+        // TODO add your handling code here:
+        NewExamen dialog = new NewExamen(new javax.swing.JFrame(), false);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jMenuItemNueExaActionPerformed
+
+    private void jMenuItemNueCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNueCliActionPerformed
+        // TODO add your handling code here:
+         NewClient dialog = new NewClient(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jMenuItemNueCliActionPerformed
+
+    private void jMenuItemExaMasFreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExaMasFreActionPerformed
+        try {
+            // TODO add your handling code here:
+            con.abrirRepor("EXAMENES.jrxml");
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(this, ex.getMessage());
+        } catch (JRException ex) {
+           JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }//GEN-LAST:event_jMenuItemExaMasFreActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            con.abrirRepor("examenesTerminados.jrxml");
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(this, ex.getMessage());
+        } catch (JRException ex) {
+           JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            con.abrirRepor("examenesNoTerminados.jrxml");
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(this, ex.getMessage());
+        } catch (JRException ex) {
+           JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void FacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FacturasActionPerformed
+        // TODO add your handling code here:
+        ImprecionExamenes dialog = new ImprecionExamenes(new javax.swing.JFrame(), false);
+         dialog.setVisible(true);
+    }//GEN-LAST:event_FacturasActionPerformed
+
     private void limpiado_Bloqueo() {
         ////////////////////////////////77
         int fil = modeloPac.getRowCount() - 1;
@@ -1225,12 +1334,15 @@ public boolean ValidarControlesIngreso(){
     private javax.swing.JLabel jLabelNomUSR;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItemAbrir;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItemExaMasFre;
-    private javax.swing.JMenuItem jMenuItemGuardar;
-    private javax.swing.JMenuItem jMenuItemNuevo;
+    private javax.swing.JMenuItem jMenuItemNueCli;
+    private javax.swing.JMenuItem jMenuItemNueExa;
+    private javax.swing.JMenuItem jMenuItemNueLab;
     private javax.swing.JMenuItem jMenuItemSalir;
     private javax.swing.JMenu jMenu_Archivo;
     private javax.swing.JPanel jPanel1;

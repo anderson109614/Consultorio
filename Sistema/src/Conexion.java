@@ -551,5 +551,114 @@ public class Conexion {
 
     }
     
+     public int contExamenesTOT() {
 
+        Connection con;
+        ResultSet res = null;
+        int i = 0;
+        try {
+            Class.forName(DRIVER);
+            try {
+                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+                String sql = "SELECT COUNT(COD_EXA) "+
+                             "FROM EXAMENES ";
+                             
+                PreparedStatement pstm = con.prepareStatement(sql);
+                res = pstm.executeQuery();
+
+                while (res.next()) {
+                    i = res.getInt(1);
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        } catch (ClassNotFoundException e) {
+            //System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return i;
+
+    }
+     public String codigoTipoExa(String nomTip) {
+
+        Connection con;
+        ResultSet res = null;
+        String i = "-1";
+        try {
+            Class.forName(DRIVER);
+            try {
+                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+                String sql = "SELECT COD_TIP "+
+                             "FROM TIPO_EXAMEN"
+                        + "WHERE NOM_TIP='"+nomTip+"' ";
+                             
+                PreparedStatement pstm = con.prepareStatement(sql);
+                res = pstm.executeQuery();
+
+                while (res.next()) {
+                    i = res.getString(1);
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        } catch (ClassNotFoundException e) {
+            //System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return i;
+
+    }
+     
+      public boolean insertarExamen(String[] datos) {
+        Connection con;
+
+        try {
+            Class.forName(DRIVER);
+            try {
+                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+                String sql = "INSERT INTO EXAMENES VALUES ('" + datos[0] + "','" + datos[1] +"','"+datos[2] +"','"+datos[3] +"') "; 
+                PreparedStatement pstm = con.prepareStatement(sql);
+                pstm.execute();
+                
+                return true;
+            } catch (SQLException e) {
+
+                JOptionPane.showMessageDialog(null, e.getMessage());
+               return false;
+            }
+        } catch (ClassNotFoundException e) {
+          JOptionPane.showMessageDialog(null, e.getMessage());
+          return false;
+        }
+        
+
+    }
+
+      
+      public boolean insertarLab(String[] datos) {
+        Connection con;
+
+        try {
+            Class.forName(DRIVER);
+            try {
+                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+                String sql = "INSERT INTO LABORATORISTAS VALUES ('" + datos[0] + "','" + datos[1] + "','" + datos[2] + "','" + datos[3]
+                        + "','" + datos[4] + "')";
+                PreparedStatement pstm = con.prepareStatement(sql);
+                pstm.execute();
+return true;
+            } catch (SQLException e) {
+
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                    return false;
+            }
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return false;
+        }
+        
+
+    }
 }
