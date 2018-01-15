@@ -32,10 +32,6 @@ GROUP BY E.TIP_EXA]]>
 				<reportElement x="194" y="48" width="223" height="20" uuid="a4a74774-cdf2-4a9c-861a-fa4cf9302c6a"/>
 				<text><![CDATA[CONTEO DE EXAMENES NO TERMINADOS]]></text>
 			</staticText>
-			<image>
-				<reportElement x="40" y="0" width="88" height="79" uuid="81bb3545-3d38-4f52-bdcb-05074c12c5a1"/>
-				<imageExpression><![CDATA["C:\\Users\\Anderson\\Documents\\GIT\\Consultorio\\Sistema\\src\\img\\LOGO.jpg"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>

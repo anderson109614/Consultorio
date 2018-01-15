@@ -20,6 +20,7 @@ public class NewExamen extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         generarCodigo();
+        this.setLocationRelativeTo(null);
     }
    Conexion con = new Conexion();
     public void generarCodigo(){

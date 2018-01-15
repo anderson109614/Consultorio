@@ -31,6 +31,7 @@ public class EditClient extends javax.swing.JDialog {
        this.add(fondo,BorderLayout.CENTER);
        this.pack();
         fondo.setVisible(true);
+        this.setLocationRelativeTo(null);
         
     }
 
@@ -67,7 +68,7 @@ public class EditClient extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButton1BUSCAR.setIcon(new javax.swing.ImageIcon("C:\\Users\\Anderson\\Desktop\\Sistema\\img\\loupe.png")); // NOI18N
+        jButton1BUSCAR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/loupe.png"))); // NOI18N
         jButton1BUSCAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1BUSCARActionPerformed(evt);
@@ -176,6 +177,11 @@ public class EditClient extends javax.swing.JDialog {
         });
 
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel9.setText("EDITAR DATOS DEL CLIENTE ");
@@ -303,6 +309,12 @@ public class EditClient extends javax.swing.JDialog {
         
         
     }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     /**
      * @param args the command line arguments

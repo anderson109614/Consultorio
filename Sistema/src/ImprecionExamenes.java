@@ -38,6 +38,7 @@ public class ImprecionExamenes extends javax.swing.JDialog {
         pnlFondo fondo = new pnlFondo(650, 650); 
        this.add(fondo,BorderLayout.CENTER);
        this.pack();
+       this.setLocationRelativeTo(null);
        
         fondo.setVisible(true);
     }

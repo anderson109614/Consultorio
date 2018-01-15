@@ -26,6 +26,7 @@ public class NewClient extends javax.swing.JDialog {
        this.add(fondo,BorderLayout.CENTER);
        this.pack();
         fondo.setVisible(true);
+        this.setLocationRelativeTo(null);
     }
 
     /**

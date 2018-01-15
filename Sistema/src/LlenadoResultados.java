@@ -37,6 +37,7 @@ public class LlenadoResultados extends javax.swing.JDialog {
        this.pack();
        
         fondo.setVisible(true);
+        this.setLocationRelativeTo(null);
        
     }
     String CILab="1805037619";

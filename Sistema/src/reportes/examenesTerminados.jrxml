@@ -27,10 +27,6 @@ GROUP BY E.TIP_EXA]]>
 	</background>
 	<title>
 		<band height="79" splitType="Stretch">
-			<image>
-				<reportElement x="50" y="0" width="88" height="79" uuid="6ec71013-ba63-4fea-89cb-81e51aa6ca0e"/>
-				<imageExpression><![CDATA["C:\\Users\\Anderson\\Documents\\GIT\\Consultorio\\Sistema\\src\\img\\LOGO.jpg"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="180" y="58" width="207" height="20" uuid="9b1ddee8-ccbe-40a5-96df-8495003f2d90"/>
 				<text><![CDATA[CONTEO DE EXAMENES TERMINADOS]]></text>

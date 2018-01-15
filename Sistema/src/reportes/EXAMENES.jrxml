@@ -31,10 +31,6 @@ GROUP BY E.TIP_EXA]]>
 				<reportElement x="229" y="38" width="137" height="20" uuid="0497b410-d3e2-47db-8011-4e9ecd9ae852"/>
 				<text><![CDATA[CONTEO DE EXAMENES]]></text>
 			</staticText>
-			<image>
-				<reportElement x="64" y="0" width="88" height="79" uuid="eebef267-0ccb-4dbe-82bc-a1a01946a6a4"/>
-				<imageExpression><![CDATA["C:\\Users\\Anderson\\Documents\\GIT\\Consultorio\\Sistema\\src\\img\\LOGO.jpg"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>

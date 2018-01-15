@@ -5,8 +5,10 @@ import java.awt.Component;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -35,9 +37,10 @@ public class principal extends javax.swing.JFrame {
     /**
      * Creates new form principal
      */
+    String CI_Cli;
     String CI_Lab;
     Conexion con = new Conexion();
-    Object[][] data = con.datosExamenes();
+    Object[][] data = con.datosExamenes("","");
     String[] columnas = {"CODIGO", "TIPO", "NOMBRE", "COSTO"};
     DefaultTableModel modelo = new DefaultTableModel(data, columnas) {
         public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -60,10 +63,11 @@ public class principal extends javax.swing.JFrame {
         fondo.setVisible(true);
         this.setExtendedState(MAXIMIZED_BOTH);
         CI_Lab = "1805037619";
+        carComTiposExa();
         //Inhabilidar paneles
-        for (Component c : jPanel1.getComponents()) {
-            c.setEnabled(false);
-        }
+//        for (Component c : jPanel1.getComponents()) {
+//            c.setEnabled(false);
+//        }
         
         //
         //jTableListaExamenesPac.setModel(ListaExaPac);
@@ -77,12 +81,31 @@ public class principal extends javax.swing.JFrame {
         this.pack();
         fondo.setVisible(true);
         this.setExtendedState(MAXIMIZED_BOTH);
-        for (Component c : jPanel1.getComponents()) {
-            c.setEnabled(false);
-        }
+        carComTiposExa();
+//        for (Component c : jPanel1.getComponents()) {
+//            c.setEnabled(false);
+//        }
         activarSupUser(supUsu);
         // jTableListaExamenes.setModel(listaExamenes);
         //jTableListaExamenesPac.setModel(ListaExaPac);
+    }
+    
+    public void carComTiposExa(){
+        Connection cn = con.cc;
+        String sql = "";
+        sql = "SELECT NOM_TIP FROM TIPO_EXAMEN";
+        try {
+            Statement psd = cn.createStatement();
+            ResultSet rs = psd.executeQuery(sql);
+            while (rs.next()) {
+                String tipo = rs.getString("NOM_TIP");
+                jComboBoxTiposExamenes.addItem(tipo);
+                
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+
+        }
     }
     
     public void activarSupUser(boolean es){
@@ -124,6 +147,11 @@ public class principal extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jButton1Guardar = new javax.swing.JButton();
         jButton2Cancealr = new javax.swing.JButton();
+        jDialogClientes = new javax.swing.JDialog();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableClientes = new javax.swing.JTable();
+        jTextFieldBuscaCliente = new javax.swing.JTextField();
+        cmbBusquedaCliente = new javax.swing.JComboBox<>();
         jToolBarHerramientas = new javax.swing.JToolBar();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         jButton4NewUser = new javax.swing.JButton();
@@ -165,6 +193,9 @@ public class principal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jTextFieldFecCon = new javax.swing.JTextField();
+        jComboBoxTiposExamenes = new javax.swing.JComboBox<>();
+        jButtonCancelar = new javax.swing.JButton();
+        jButtonPrueba = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu_Archivo = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -179,6 +210,7 @@ public class principal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         Facturas = new javax.swing.JMenuItem();
+        jMenuFacturacion = new javax.swing.JMenu();
 
         jMenuItem1.setText("Eliminar");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -334,6 +366,80 @@ public class principal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jDialogClientes.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                jDialogClientesWindowOpened(evt);
+            }
+        });
+
+        jTableClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jTableClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableClientesMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jTableClientes);
+
+        jTextFieldBuscaCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldBuscaClienteFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldBuscaClienteFocusLost(evt);
+            }
+        });
+        jTextFieldBuscaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextFieldBuscaClienteMouseClicked(evt);
+            }
+        });
+        jTextFieldBuscaCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldBuscaClienteKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldBuscaClienteKeyTyped(evt);
+            }
+        });
+
+        cmbBusquedaCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CEDULA", "NOMBRE", "APELLIDO", "CORREO" }));
+
+        javax.swing.GroupLayout jDialogClientesLayout = new javax.swing.GroupLayout(jDialogClientes.getContentPane());
+        jDialogClientes.getContentPane().setLayout(jDialogClientesLayout);
+        jDialogClientesLayout.setHorizontalGroup(
+            jDialogClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialogClientesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jDialogClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jDialogClientesLayout.createSequentialGroup()
+                        .addComponent(cmbBusquedaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jDialogClientesLayout.setVerticalGroup(
+            jDialogClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialogClientesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jDialogClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldBuscaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                    .addComponent(cmbBusquedaCliente))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -413,6 +519,19 @@ public class principal extends javax.swing.JFrame {
 
         jTextField1CICliente.setFocusCycleRoot(true);
         jTextField1CICliente.setFocusTraversalPolicyProvider(true);
+        jTextField1CICliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField1CIClienteFocusGained(evt);
+            }
+        });
+        jTextField1CICliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1CIClienteKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1CIClienteKeyTyped(evt);
+            }
+        });
 
         jButton1BUSCAR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/loupe.png"))); // NOI18N
         jButton1BUSCAR.addActionListener(new java.awt.event.ActionListener() {
@@ -423,7 +542,9 @@ public class principal extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setEnabled(false);
         jPanel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.setOpaque(false);
 
         jLabel2.setText("NOMBRE:");
 
@@ -436,14 +557,19 @@ public class principal extends javax.swing.JFrame {
         jLabel8.setText("DIRECCIÓN:");
 
         jTextField_Nom_cli.setEditable(false);
+        jTextField_Nom_cli.setOpaque(false);
 
         jTextFieldApe_cli.setEditable(false);
+        jTextFieldApe_cli.setOpaque(false);
 
         jTextFieldTel_cli.setEditable(false);
+        jTextFieldTel_cli.setOpaque(false);
 
         jTextFieldDir_cli.setEditable(false);
+        jTextFieldDir_cli.setOpaque(false);
 
         jTextFieldCel_cli.setEditable(false);
+        jTextFieldCel_cli.setOpaque(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -600,17 +726,19 @@ public class principal extends javax.swing.JFrame {
         jTextFieldNumConsult.setEditable(false);
         jTextFieldNumConsult.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextFieldNumConsult.setEnabled(false);
+        jTextFieldNumConsult.setOpaque(false);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setEnabled(false);
+        jPanel2.setOpaque(false);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel11.setText("FECHA CONSULTA:");
 
         jTextFieldFecCon.setEditable(false);
         jTextFieldFecCon.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextFieldFecCon.setEnabled(false);
+        jTextFieldFecCon.setOpaque(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -632,6 +760,27 @@ public class principal extends javax.swing.JFrame {
                     .addComponent(jTextFieldFecCon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jComboBoxTiposExamenes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TIPO EXAMEN" }));
+        jComboBoxTiposExamenes.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxTiposExamenesItemStateChanged(evt);
+            }
+        });
+
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
+
+        jButtonPrueba.setText("jButton4");
+        jButtonPrueba.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPruebaActionPerformed(evt);
+            }
+        });
 
         jMenu_Archivo.setText("Archivo");
 
@@ -709,6 +858,9 @@ public class principal extends javax.swing.JFrame {
         });
         jMenu2.add(Facturas);
 
+        jMenuFacturacion.setText("Facturacion");
+        jMenu2.add(jMenuFacturacion);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -730,27 +882,35 @@ public class principal extends javax.swing.JFrame {
                         .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
+                            .addGap(8, 8, 8)
                             .addComponent(jLabel1)
-                            .addGap(18, 18, 18)
+                            .addGap(56, 56, 56)
                             .addComponent(jTextField1CICliente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(jButton1BUSCAR)
-                            .addGap(64, 64, 64)
+                            .addGap(18, 18, 18)
                             .addComponent(jLabel10)
                             .addGap(18, 18, 18)
                             .addComponent(jTextFieldNumConsult, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonPrueba)
+                        .addGap(88, 88, 88)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jButtonEliminarLisPac)
                 .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextFieldBuscarExamen, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBoxTiposExamenes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(63, Short.MAX_VALUE))
         );
@@ -765,7 +925,8 @@ public class principal extends javax.swing.JFrame {
                         .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldBuscarExamen, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
+                            .addComponent(jButton1)
+                            .addComponent(jComboBoxTiposExamenes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2))
                     .addGroup(layout.createSequentialGroup()
@@ -795,7 +956,10 @@ public class principal extends javax.swing.JFrame {
                                     .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jButtonEliminarLisPac))
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton2)
+                            .addComponent(jButtonCancelar)
+                            .addComponent(jButtonPrueba))))
                 .addGap(68, 68, 68))
         );
 
@@ -837,9 +1001,9 @@ public class principal extends javax.swing.JFrame {
 
     private void jButton1BUSCARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1BUSCARActionPerformed
         // TODO add your handling code here:
-        String ci_cli = jTextField1CICliente.getText();
-        busquedaLlenadoCliente(ci_cli);
-
+        jDialogClientes.setVisible(true);
+jDialogClientes.setSize(500, 220);
+jDialogClientes.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton1BUSCARActionPerformed
 
     private void busquedaLlenadoCliente(String ci_cli) {
@@ -971,32 +1135,43 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldBuscarExamenFocusLost
     private TableRowSorter tabla;
 
-    public void filtro() {
-        tabla.setRowFilter(RowFilter.regexFilter(jTextFieldBuscarExamen.getText(), 2));
-    }
+//    public void filtro() {
+//        tabla.setRowFilter(RowFilter.regexFilter(jTextFieldBuscarExamen.getText(), 2));
+//    }
     private void jTextFieldBuscarExamenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBuscarExamenKeyTyped
         // TODO add your handling code here: 
-        jTextFieldBuscarExamen.addKeyListener(new KeyAdapter() {
+//        jTextFieldBuscarExamen.addKeyListener(new KeyAdapter() {
+//
+//            public void keyReleased(final KeyEvent e) {
+//                String Cadena = jTextFieldBuscarExamen.getText().trim();
+//                jTextFieldBuscarExamen.setText(Cadena);
+//                repaint();
+//                filtro();
+//                
+//                          
+//
+//            }
+//        });
 
-            public void keyReleased(final KeyEvent e) {
-                String Cadena = jTextFieldBuscarExamen.getText().trim();
-                jTextFieldBuscarExamen.setText(Cadena);
-                repaint();
-                filtro();
-                
-                          
-
-            }
-        });
-
-        tabla = new TableRowSorter(modelo);
-
-        jTableListaExamenes.setRowSorter(tabla);
-
+//        tabla = new TableRowSorter(modelo);
+//
+//        jTableListaExamenes.setRowSorter(tabla);
+//
 
     }//GEN-LAST:event_jTextFieldBuscarExamenKeyTyped
 
     private void jTextFieldBuscarExamenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBuscarExamenKeyReleased
+        String tip =jComboBoxTiposExamenes.getSelectedItem().toString().trim();
+        if(tip.equals("TIPO EXAMEN")){
+            tip ="";
+        }
+        data = con.datosExamenes(jTextFieldBuscarExamen.getText().trim(),tip);
+           DefaultTableModel mode = new DefaultTableModel(data, columnas) {
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return false;
+        }
+    };
+           jTableListaExamenes.setModel(mode);
         // TODO add your handling code here:busqueda de examenes
 //        if(jTextFieldBuscarExamen.getText().equals("")){
 //            
@@ -1060,11 +1235,12 @@ public class principal extends javax.swing.JFrame {
         if (jTextFieldTotal.getText().equals("") || jTextFieldFecCon.getText().equals("") || jTextFieldTotal.getText().equals("0.0")) {
 
         } else {
-            String[] datos = new String[4];
+            String[] datos = new String[5];
             datos[0] = jTextFieldNumConsult.getText();
             datos[1] = jTextField1CICliente.getText();
             datos[2] = CI_Lab;
             datos[3] = jTextFieldFecCon.getText();
+            
 
             TableModel modeloPa = jTableListaExamenesPac.getModel();
             int filPac = jTableListaExamenesPac.getRowCount();
@@ -1073,10 +1249,25 @@ public class principal extends javax.swing.JFrame {
             for (i = 0; i < filPac; i++) {
                 examenes[i] = modeloPa.getValueAt(i, 0).toString();
             }
-            con.insertarConsulta(datos, examenes);
-
-            limpiado_Bloqueo();
+            String valor= JOptionPane.showInputDialog("Valor Abonado:");
+            try{
+            float valAbon=Float.valueOf(valor);
+            if(valAbon>0 && valAbon<Float.valueOf(jTextFieldTotal.getText().toString())){
+                datos[4]=valor;
+                con.insertarConsulta(datos, examenes);
+                limpiado_Bloqueo();
+            }else{
+                JOptionPane.showMessageDialog(null, "Ingrese un valor menor o igual a pagar");
+            }
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Ingrese solo números");
+            }
+            
+            
+            
+            
         }
+        //JOptionPane.sho
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -1210,11 +1401,122 @@ public boolean ValidarControlesIngreso(){
          dialog.setVisible(true);
     }//GEN-LAST:event_FacturasActionPerformed
 
+    private void jComboBoxTiposExamenesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTiposExamenesItemStateChanged
+              // TODO add your handling code here:
+           String tip =jComboBoxTiposExamenes.getSelectedItem().toString().trim();
+        if(tip.equals("TIPO EXAMEN")){
+            tip ="";
+        }
+        data = con.datosExamenes("",tip);
+           DefaultTableModel mode = new DefaultTableModel(data, columnas) {
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return false;
+        }
+    };
+           jTableListaExamenes.setModel(mode);
+    }//GEN-LAST:event_jComboBoxTiposExamenesItemStateChanged
+
+    private void jTextField1CIClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1CIClienteKeyTyped
+         // TODO add your handling code here:
+         
+        
+    }//GEN-LAST:event_jTextField1CIClienteKeyTyped
+  
+    private void jTextField1CIClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1CIClienteKeyReleased
+         // TODO add your handling code here:
+         int d= jTextField1CICliente.getText().length();
+         CI_Cli=jTextField1CICliente.getText();
+        if (d==10) {
+            String ci_cli = jTextField1CICliente.getText();
+            busquedaLlenadoCliente(ci_cli);
+        }
+    }//GEN-LAST:event_jTextField1CIClienteKeyReleased
+
+    private void jTextFieldBuscaClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldBuscaClienteFocusGained
+        // TODO add your handling code here:
+         jTextFieldBuscarExamen.setForeground(Color.BLACK);
+        jTextFieldBuscarExamen.setText("");
+    }//GEN-LAST:event_jTextFieldBuscaClienteFocusGained
+
+    private void jTextFieldBuscaClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldBuscaClienteFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldBuscaClienteFocusLost
+
+    private void jTextFieldBuscaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldBuscaClienteMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldBuscaClienteMouseClicked
+
+    private void jTextFieldBuscaClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBuscaClienteKeyReleased
+          // TODO add your handling code here:
+          
+          String tip =cmbBusquedaCliente.getSelectedItem().toString().trim();
+          Object[][] d;   
+          Object[] c={"DEDULA", "NOMBRE", "APELLIDO", "E-MAIL","DIRECCION"};   
+        d = con.bus_cli(jTextFieldBuscaCliente.getText().trim(),tip);
+           DefaultTableModel mode = new DefaultTableModel(d, c) {
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return false;
+        }
+    };
+           jTableClientes.setModel(mode);
+          
+          
+          
+    }//GEN-LAST:event_jTextFieldBuscaClienteKeyReleased
+
+    private void jTextFieldBuscaClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBuscaClienteKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldBuscaClienteKeyTyped
+
+    private void jDialogClientesWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jDialogClientesWindowOpened
+         // TODO add your handling code here:
+         jTextFieldBuscaCliente.setText(CI_Cli);
+    }//GEN-LAST:event_jDialogClientesWindowOpened
+
+    private void jTableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableClientesMouseClicked
+        // TODO add your handling code here:
+        int c= evt.getClickCount();
+        if(c==2){
+            int a= jTableClientes.getSelectedRow();
+            String ce = jTableClientes.getValueAt(a,0).toString();
+            jTextField1CICliente.setText(ce);
+            String ci_cli = jTextField1CICliente.getText();
+            busquedaLlenadoCliente(ci_cli);
+            jDialogClientes.setVisible(false);
+        }
+    }//GEN-LAST:event_jTableClientesMouseClicked
+
+    private void jTextField1CIClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1CIClienteFocusGained
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTextField1CIClienteFocusGained
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        limpiarDatos();
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPruebaActionPerformed
+                // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonPruebaActionPerformed
+
+    private void limpiarDatos() {
+        
+        jTextField1CICliente.setText("");
+        jTextField_Nom_cli.setText("");
+        jTextFieldApe_cli.setText("");
+        jTextFieldDir_cli.setText("");
+        jTextFieldTel_cli.setText("");
+        jTextFieldCel_cli.setText("");
+        jTextFieldFecCon.setText(""); 
+        jTextFieldTotal.setText("");
+        limpiado_Bloqueo();
+    }
+
     private void limpiado_Bloqueo() {
         ////////////////////////////////77
         int fil = modeloPac.getRowCount() - 1;
         //  Limpiado del jTable de paciente
-        if (fil > 0) {
+        if (fil >= 0) {
             for (int j = fil; j >= 0; j--) {
                 modeloPac.removeRow(modeloPac.getRowCount() - 1);
 
@@ -1300,6 +1602,7 @@ public boolean ValidarControlesIngreso(){
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Facturas;
+    private javax.swing.JComboBox<String> cmbBusquedaCliente;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton1BUSCAR;
     private javax.swing.JButton jButton1Guardar;
@@ -1309,9 +1612,13 @@ public boolean ValidarControlesIngreso(){
     private javax.swing.JButton jButton4NewUser;
     private javax.swing.JButton jButton5AddUser;
     private javax.swing.JButton jButton6Reportes;
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEliminarLisPac;
+    private javax.swing.JButton jButtonPrueba;
     private javax.swing.JButton jButtonSalir_TollBar;
+    private javax.swing.JComboBox<String> jComboBoxTiposExamenes;
     private com.toedter.calendar.JDateChooser jDateChooserFec_nac;
+    private javax.swing.JDialog jDialogClientes;
     private javax.swing.JDialog jDialog_Registro_Cliente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1336,6 +1643,7 @@ public boolean ValidarControlesIngreso(){
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuFacturacion;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
@@ -1350,17 +1658,20 @@ public boolean ValidarControlesIngreso(){
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar.Separator jSeparator5;
+    private javax.swing.JTable jTableClientes;
     private javax.swing.JTable jTableListaExamenes;
     private javax.swing.JTable jTableListaExamenesPac;
     private javax.swing.JTextField jTextField1CICliente;
     private javax.swing.JTextField jTextField1CICliente1;
     private javax.swing.JTextField jTextFieldApe_cli;
     private javax.swing.JTextField jTextFieldApe_cli1;
+    private javax.swing.JTextField jTextFieldBuscaCliente;
     private javax.swing.JTextField jTextFieldBuscarExamen;
     private javax.swing.JTextField jTextFieldCel_cli;
     private javax.swing.JTextField jTextFieldCel_cli1;
